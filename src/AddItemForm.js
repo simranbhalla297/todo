@@ -1,15 +1,28 @@
-import React from "react";
-import { Button, Form } from "react-bootstrap";
-function AddItemForm() {
+import React, { useState } from "react";
+import { Button } from "react-bootstrap";
+function AddItemForm({ addItem }) {
+  const [item, setItem] = useState("");
+  const handleSubmit = () => {
+    addItem(item);
+    setItem("");
+  };
+
+ 
   return (
     <div className="formContainer">
       <div>
-        <Form className="formBox">
-          <Form.Control type="text" placeholder="Large text" />
+        <form className="formBox">
+          <input
+            type="text"
+            placeholder="Large text"
+            value={item}
+            onChange={(e) => setItem(e.target.value)}
+          />
+
           <div className="submitBtn">
-            <Button>Submit</Button>
+            <Button onClick={handleSubmit}>Submit</Button>
           </div>
-        </Form>
+        </form>
       </div>
     </div>
   );
