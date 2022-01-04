@@ -6,13 +6,21 @@ import ItemList from "./ItemList";
 
 function App() {
   const [items, setItems] = useState([]);
+  const [isediting, setIsEditing] = useState(false);
+  const [userInput, setUserInput] = useState("");
   const addItem = (item) => {
-    // assuming no duplicates for demo purposes
     setItems([...items, item]);
   };
   const removeItem = (itemToBeDeleted) => {
     setItems(items.filter((item) => itemToBeDeleted !== item));
   };
+
+  function handleEditClick(editItem, id) {
+    // set editing to true
+    setIsEditing(true);
+    console.log(editItem);
+    setUserInput(editItem);
+  }
 
   useEffect(() => {
     const items = JSON.parse(localStorage.getItem("items"));
@@ -31,8 +39,17 @@ function App() {
   return (
     <div className="container">
       To Do items
-      <AddItemForm addItem={addItem}  />
-      <ItemList items={items} removeItem={removeItem} />
+      <AddItemForm
+        addItem={addItem}
+        isediting={isediting}
+        userInput={userInput}
+        setUserInput={setUserInput}
+      />
+      <ItemList
+        items={items}
+        removeItem={removeItem}
+        handleEditClick={handleEditClick}
+      />
     </div>
   );
 }

@@ -1,10 +1,13 @@
 import React from "react";
 
-function Item({ item, removeItem }) {
+function Item({ item, removeItem, handleEditClick, id }) {
   return (
     <div className="listcontainer">
       <span>{item}</span>
-      <button onClick={() => removeItem(item)}>X</button>
+      <div>
+        <button onClick={() => removeItem(item)}>Delete</button>
+        <button onClick={() => handleEditClick(item, id)}>Edit item</button>
+      </div>
     </div>
   );
 }

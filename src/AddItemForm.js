@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "react-bootstrap";
-function AddItemForm({ addItem }) {
-  const [item, setItem] = useState("");
+function AddItemForm({
+  addItem,
+  isediting,
+  handleEditClick,
+  setUserInput,
+  userInput,
+}) {
   const handleSubmit = () => {
-    addItem(item);
-    setItem("");
+    addItem(userInput);
+    setUserInput("");
   };
 
- 
   return (
     <div className="formContainer">
       <div>
@@ -15,12 +19,18 @@ function AddItemForm({ addItem }) {
           <input
             type="text"
             placeholder="Large text"
-            value={item}
-            onChange={(e) => setItem(e.target.value)}
+            value={userInput}
+            onChange={(e) => setUserInput(e.target.value)}
           />
 
           <div className="submitBtn">
-            <Button onClick={handleSubmit}>Submit</Button>
+            <div>
+              {isediting ? (
+                <Button onClick={handleSubmit}>Edit</Button>
+              ) : (
+                <Button onClick={handleSubmit}>Submit</Button>
+              )}
+            </div>
           </div>
         </form>
       </div>
