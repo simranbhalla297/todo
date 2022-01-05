@@ -26,9 +26,9 @@ function AddItemForm({
           <div className="submitBtn">
             <div>
               {isediting ? (
-                <Button onClick={handleSubmit}>Edit</Button>
+                <Button onClick={handleSubmit}>submit</Button>
               ) : (
-                <Button onClick={handleSubmit}>Submit</Button>
+                <Button onClick={handleSubmit}>Edit</Button>
               )}
             </div>
           </div>

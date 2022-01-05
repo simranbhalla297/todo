@@ -1,12 +1,18 @@
 import React from "react";
-
-function Item({ item, removeItem, handleEditClick, id }) {
+import { Button } from "react-bootstrap";
+function Item({ item, removeItem, addItem, handleEditClick, id }) {
   return (
     <div className="listcontainer">
-      <span>{item}</span>
-      <div>
-        <button onClick={() => removeItem(item)}>Delete</button>
-        <button onClick={() => handleEditClick(item, id)}>Edit item</button>
+      
+      <p style={{textTransform:'capitalize'}}>{item}</p>
+
+      <div style={{ display: "flex" }}>
+        <div>
+          <Button onClick={() => removeItem(id)}>Delete</Button>
+        </div>
+        <div style={{ marginLeft: "5px" }}>
+          <Button onClick={() => handleEditClick(id)}>Edit item</Button>
+        </div>
       </div>
     </div>
   );

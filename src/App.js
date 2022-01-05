@@ -6,20 +6,53 @@ import ItemList from "./ItemList";
 
 function App() {
   const [items, setItems] = useState([]);
-  const [isediting, setIsEditing] = useState(false);
+  const [isediting, setIsEditing] = useState(true);
   const [userInput, setUserInput] = useState("");
+  const [isEditItem, setIsEditItem] = useState(null);
+
   const addItem = (item) => {
-    setItems([...items, item]);
-  };
-  const removeItem = (itemToBeDeleted) => {
-    setItems(items.filter((item) => itemToBeDeleted !== item));
+    if (!userInput) {
+      console.log("please enter data");
+    } else if (userInput && !isediting) {
+      setItems(
+        items.map((elem) => {
+          if (elem.id === isEditItem) {
+            return { ...elem, name: item };
+          }
+          return elem;
+        })
+      );
+      setIsEditing(true);
+      setUserInput("");
+      setIsEditItem(null);
+    } else {
+      const allInputData = {
+        id: new Date().getTime().toString(),
+        name: item,
+      };
+      setItems([...items, allInputData]);
+    }
   };
 
-  function handleEditClick(editItem, id) {
+  const removeItem = (index) => {
+    console.log(index);
+    const updateditems = items.filter((elem) => {
+      return index !== elem.id;
+    });
+    setItems(updateditems);
+  };
+
+  function handleEditClick(id) {
     // set editing to true
-    setIsEditing(true);
-    console.log(editItem);
-    setUserInput(editItem);
+
+    console.log(id);
+    let newEditItem = items.find((elem) => {
+      return elem.id === id;
+    });
+    console.log(newEditItem);
+    setIsEditing(false);
+    setUserInput(newEditItem.name);
+    setIsEditItem(id);
   }
 
   useEffect(() => {
@@ -38,7 +71,11 @@ function App() {
   console.log(items);
   return (
     <div className="container">
-      To Do items
+      <div className="heading">
+        {" "}
+        <h2> Add your list here....</h2>
+      </div>
+
       <AddItemForm
         addItem={addItem}
         isediting={isediting}
